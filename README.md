@@ -52,6 +52,8 @@ The idea is simple: **a T9 keypad and the results at a glance** – no categorie
 
 Screenshots are cropped to A9 itself (no phone wallpaper or other apps).
 
+> If the images do not load (some corporate networks block the image host `raw.githubusercontent.com`), open them directly instead: [search](docs/screenshots/01-search.png) · [long-press menu](docs/screenshots/02-longpress-menu.png) · [settings](docs/screenshots/03-settings.png) · [appearance](docs/screenshots/04-appearance.png) · [color wheel](docs/screenshots/05-color-wheel.png) · [light theme](docs/screenshots/06-light-blue.png)
+
 <table>
   <tr>
     <td align="center"><img src="docs/screenshots/01-search.png" width="300"><br><sub>Searching <code>225</code>: matched letters highlighted, CLEAR key (long-press for settings)</sub></td>
