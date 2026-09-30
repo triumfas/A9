@@ -1,204 +1,204 @@
 # A9
 
-**A9** – greitos programų paieškos „pop-up“ langas Android 16+ telefonams. Atsidaro kaip kompaktiška plokštė virš bet kurios programos, leidžia per kelis paspaudimus surasti ir paleisti programą (ar kontaktą), o ilgai palaikius ikoną pasiūlo dažniausiai naudojamus veiksmus.
+**A9** is a fast app-search pop-up for Android 16+ phones. It opens as a compact panel on top of whatever you are doing, lets you find and launch an app (or a contact) in a few taps, and offers the most useful actions when you long-press an icon.
 
-Idėja paprasta: **T9 klaviatūra + rezultatai per vieną žvilgsnį**, be kategorijų, aplankų ir ilgo slinkimo per programų sąrašą. Viskas veikia vietoje telefone – be interneto, be paskyros, be analitikos.
+The idea is simple: **a T9 keypad and the results at a glance** – no categories, no folders, no long scrolling through an app drawer. Everything runs locally on the phone: no internet, no account, no analytics.
 
 <p align="center">
-  <img src="docs/screenshots/01-search.png" alt="Paieška T9 klaviatūra" width="360">
+  <img src="docs/screenshots/01-search.png" alt="T9 search" width="360">
   &nbsp;&nbsp;
-  <img src="docs/screenshots/06-light-blue.png" alt="Šviesi tema su mėlynu akcentu" width="360">
+  <img src="docs/screenshots/06-light-blue.png" alt="Light theme with a blue accent" width="360">
 </p>
 
-## Turinys
-- [Funkcijos](#funkcijos)
-- [Ekrano nuotraukos](#ekrano-nuotraukos)
-- [Kaip naudotis](#kaip-naudotis)
-- [Kaip veikia paieška](#kaip-veikia-paieška)
-- [Nustatymai](#nustatymai)
-- [Leidimai ir privatumas](#leidimai-ir-privatumas)
-- [Greitis](#greitis)
-- [Architektūra](#architektūra)
-- [Kompiliavimas](#kompiliavimas)
-- [Testai](#testai)
-- [Žinomi apribojimai](#žinomi-apribojimai)
-- [Licencija](#licencija)
+## Contents
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [How to use](#how-to-use)
+- [How search works](#how-search-works)
+- [Settings](#settings)
+- [Permissions and privacy](#permissions-and-privacy)
+- [Performance](#performance)
+- [Architecture](#architecture)
+- [Building](#building)
+- [Tests](#tests)
+- [Known limitations](#known-limitations)
+- [License](#license)
 
-## Funkcijos
+## Features
 
-**Paieška ir rezultatai**
-- T9 numpad (3×3): raidės ieškomos per skaitmenis 2–9, pvz. `225` → **Cal**endar, **Cal**culator.
-- Ieškoma pagal pavadinimą, atskirus žodžius, `CamelCase` dalis, inicialus (`gm` → Google Maps), paketo pavadinimą ir bet kur pavadinime. Lietuviškos ir kitos diakritinės raidės traktuojamos kaip bazinės (`š` → `s`).
-- Atitikusios raidės **paryškinamos akcento spalva** pavadinime – užklausos eilutės nereikia, matote, kodėl programa pasirodė.
-- Rezultatai rikiuojami pagal atitikimo kokybę ir jūsų naudojimo istoriją; rezultatai puslapiuojami – stumkite į šoną, kad pamatytumėte daugiau.
-- Tuščia užklausa: **prisegtos** → **paskutinė paleista per A9** → **neseniai naudotos telefone** (neprivaloma) → likusios pagal abėcėlę.
-- Veikia su **darbo profilio** programomis (žymima 💼).
-- Kontaktų paieška (neprivaloma): pagal vardą arba telefono numerį.
+**Search and results**
+- T9 keypad (3×3): letters are searched through the digits 2–9, e.g. `225` → **Cal**endar, **Cal**culator.
+- Matches the full name, individual words, `CamelCase` parts, initials (`gm` → Google Maps), the package name, and any substring of the name. Accented letters are treated as their base letters (`š` → `s`).
+- Matched letters are **highlighted in the accent color** inside the app name – there is no query line, you simply see why an app showed up.
+- Results are ranked by match quality and your usage history, and are paged – swipe sideways to see more.
+- Empty query: **pinned** → **last launched via A9** → **recently used on the phone** (optional) → the rest alphabetically.
+- Works with **work-profile** apps (marked 💼).
+- Contact search (optional): by name or phone number.
 
-**Veiksmai ilgai palaikius ikoną**
-- App info, Pin / Unpin, Add to Home screen, Hide, Play Store puslapis, Uninstall (ne sistemoms), Force stop (atidaro sistemos App info ekraną su „Force stop“).
-- Kompaktiškas meniu atsidaro virš ikonos (arba po ja) – **dažniausiai naudojami veiksmai arčiausiai ikonos**; A9 pati išmoksta tvarką iš jūsų naudojimo.
-- Kontaktams: skambinti, SMS, atidaryti kontaktą.
+**Long-press actions**
+- App info, Pin / Unpin, Add to Home screen, Hide, Play Store page, Uninstall (non-system apps), Force stop (opens the system App info screen with its “Force stop” button).
+- A compact menu opens above the icon (or below it) – **the most frequently used actions are closest to the icon**; A9 learns the order from how you use it.
+- For contacts: call, SMS, open contact.
 
-**Kita**
-- **Quick Launch pranešimas** su 6 dažniausiai naudojamomis programomis (atsistato po perkrovimo).
-- **Icon pack'ai** (ADW / Nova / Go formatai).
-- **Išvaizda su gyva peržiūra**: tema (Dark / Light / Transparent), fono spalva (spalvų ratas + šviesumas) su permatomumu, akcento spalva, programų skaičius lange (3–6 stulpeliai × 1–3 eilutės).
-- **Lango padėtis ir dydis**: tempkite langą kur norite, didinkite / mažinkite (išdėstymas prisitaiko).
-- **Paslėptos programos** su paieška – paslėpkite bet kurią ar atslėpkite atgal.
-- Haptinis atsakas (galima išjungti), lietuvių ir anglų kalbos.
+**More**
+- **Quick Launch notification** with your 6 most-used apps (restored after a reboot).
+- **Icon packs** (ADW / Nova / Go formats).
+- **Appearance with a live preview**: theme (Dark / Light / Transparent), background color (color wheel + brightness) with transparency, accent color, number of apps in the window (3–6 columns × 1–3 rows).
+- **Window position and size**: drag the window anywhere, make it bigger or smaller (the layout adapts).
+- **Hidden apps** with search – hide any app or bring it back.
+- Haptic feedback (can be turned off); English and Lithuanian UI.
 
-## Ekrano nuotraukos
+## Screenshots
 
-Nuotraukos apkarpytos iki pačios A9 (be telefono fono ir kitų programų).
+Screenshots are cropped to A9 itself (no phone wallpaper or other apps).
 
 <table>
   <tr>
-    <td align="center"><img src="docs/screenshots/01-search.png" width="300"><br><sub>Paieška <code>225</code>: paryškintos atitikusios raidės, CLEAR klavišas (ilgai – nustatymai)</sub></td>
-    <td align="center"><img src="docs/screenshots/02-longpress-menu.png" width="220"><br><sub>Ilgas palaikymas: kompaktiškas meniu, dažniausias veiksmas apačioje – arčiausiai ikonos</sub></td>
+    <td align="center"><img src="docs/screenshots/01-search.png" width="300"><br><sub>Searching <code>225</code>: matched letters highlighted, CLEAR key (long-press for settings)</sub></td>
+    <td align="center"><img src="docs/screenshots/02-longpress-menu.png" width="220"><br><sub>Long-press: compact menu, the most-used action at the bottom – closest to the icon</sub></td>
   </tr>
   <tr>
-    <td align="center"><img src="docs/screenshots/06-light-blue.png" width="300"><br><sub>Šviesi tema su mėlynu akcentu</sub></td>
-    <td align="center"><img src="docs/screenshots/03-settings.png" width="220"><br><sub>Nustatymai</sub></td>
+    <td align="center"><img src="docs/screenshots/06-light-blue.png" width="300"><br><sub>Light theme with a blue accent</sub></td>
+    <td align="center"><img src="docs/screenshots/03-settings.png" width="220"><br><sub>Settings</sub></td>
   </tr>
   <tr>
-    <td align="center"><img src="docs/screenshots/04-appearance.png" width="220"><br><sub>Išvaizda: gyva peržiūra, tema, spalvos, stulpeliai / eilutės</sub></td>
-    <td align="center"><img src="docs/screenshots/05-color-wheel.png" width="220"><br><sub>Spalvų ratas akcento spalvai + šviesumo slankiklis</sub></td>
+    <td align="center"><img src="docs/screenshots/04-appearance.png" width="220"><br><sub>Appearance: live preview, theme, colors, columns / rows</sub></td>
+    <td align="center"><img src="docs/screenshots/05-color-wheel.png" width="220"><br><sub>Color wheel for the accent color + brightness slider</sub></td>
   </tr>
 </table>
 
-## Kaip naudotis
+## How to use
 
-| Veiksmas | Rezultatas |
+| Action | Result |
 |---|---|
-| Paleisti A9 (ikona / kitas būdas) | Atsidaro plokštė; rezultatai – paskutinės naudotos programos |
-| Rinkti skaičius 2–9 | Rezultatai siaurėja, atitikusios raidės paryškinamos |
-| Bakstelėti ikoną | Programa paleidžiama, A9 užsidaro |
-| Ilgai palaikyti ikoną | Veiksmų meniu |
-| **CLEAR** (trumpai) | Išvalo visą įvestą užklausą |
-| **CLEAR** (ilgai) | Atidaro nustatymus |
-| Stumti rezultatus į šoną | Kiti rezultatų puslapiai |
-| Bakstelėti už plokštės | Uždaro A9 |
-| Atgal gestas | Pirma išvalo užklausą, po to uždaro |
+| Launch A9 (launcher icon or another shortcut) | The panel opens; results show your recent apps |
+| Type digits 2–9 | Results narrow down, matched letters are highlighted |
+| Tap an icon | The app launches and A9 closes |
+| Long-press an icon | Actions menu |
+| **CLEAR** (tap) | Clears the whole query |
+| **CLEAR** (long-press) | Opens settings |
+| Swipe results sideways | More result pages |
+| Tap outside the panel | Closes A9 |
+| Back gesture | Clears the query first, then closes |
 
-Klavišo „1“ ir „0“ nėra sąmoningai: T9 jų nenaudoja, todėl vietoje „1“ yra CLEAR / nustatymai, o vieta sutaupoma.
+There are deliberately no “1” and “0” keys: T9 does not use them, so “1” is replaced by CLEAR / settings and the keypad stays compact.
 
-## Kaip veikia paieška
+## How search works
 
-Paieška – gryna Kotlin logika (`search/`), be Android priklausomybių, todėl lengvai testuojama.
+Search is pure Kotlin logic (`search/`) with no Android dependencies, so it is easy to test.
 
-1. **Normalizavimas** (`T9Map`): mažosios raidės, be diakritikų (`ą→a`, `ł→l`, `ß→s` …). T9 žemėlapis: `2=abc 3=def 4=ghi 5=jkl 6=mno 7=pqrs 8=tuv 9=wxyz`.
-2. **Ieškomi fragmentai** (`Tokenizer`) kiekvienai programai / kontaktui:
-   - `FULL` – visas pavadinimas be tarpų;
-   - `WORD` – kiekvienas žodis (įskaitant `CamelCase` dalis);
-   - `INITIALS` – žodžių pirmosios raidės;
-   - `PACKAGE` – paketo pavadinimo dalys;
-   - `PHONE` – kontakto telefono numeriai.
-3. **Užklausos režimas:** jei užklausa tik iš skaitmenų – lyginama su fragmento **T9 kodu**, kitaip – su tekstu.
-4. **Rikiavimas** (`SearchEngine`): atitikimo tipo bazinis balas (visas pavadinimas > telefonas > žodis > inicialai > paketas > bet kur) + prefikso ilgis; prie jo pridedama naudojimo istorija (paleidimų skaičius iki 50, paskutinio naudojimo šviežumas per 30 dienų, prisegimas +5000). Lygiais atvejais – pagal pavadinimą.
-5. **Paryškinimas** (`Highlighter`): tuo pačiu prioritetu suranda, kurie pavadinimo simboliai atitiko užklausą.
+1. **Normalization** (`T9Map`): lowercase, no diacritics (`ą→a`, `ł→l`, `ß→s` …). T9 map: `2=abc 3=def 4=ghi 5=jkl 6=mno 7=pqrs 8=tuv 9=wxyz`.
+2. **Searchable fragments** (`Tokenizer`) for each app / contact:
+   - `FULL` – the whole name without spaces;
+   - `WORD` – each word (including `CamelCase` parts);
+   - `INITIALS` – the first letters of the words;
+   - `PACKAGE` – parts of the package name;
+   - `PHONE` – a contact's phone numbers.
+3. **Query mode:** a query made only of digits is matched against a fragment's **T9 code**, otherwise against its text.
+4. **Ranking** (`SearchEngine`): a base score by match type (full name > phone > word > initials > package > anywhere) plus prefix length; usage history is added on top (launch count capped at 50, recency over 30 days, pinned +5000). Ties are broken by name.
+5. **Highlighting** (`Highlighter`): with the same priority, finds which characters of the name matched the query.
 
-Paieška yra tiesinis skenavimas per atmintyje laikomą indeksą (šimtams–tūkstančiams įrašų užtrunka <1 ms).
+Search is a linear scan over an in-memory index (well under 1 ms for hundreds to thousands of entries).
 
-## Nustatymai
+## Settings
 
-Atidaromi **ilgai palaikius CLEAR**.
+Open them by **long-pressing CLEAR**.
 
-- **Išvaizda** – tema, fono spalva ir permatomumas, akcento spalva, stulpeliai ir eilutės, viršuje gyva peržiūra. Pasirinkus temą atstatomi pritaikyto fono nustatymai.
-- **Icon pack** – pasirinkite įdiegtą ikonų paketą arba numatytąsias ikonas.
-- **Contacts** – kontaktų paieška (paprašo READ_CONTACTS ir CALL_PHONE).
-- **Quick Launch Panel** – nuolatinis pranešimas su dažniausiomis programomis (paprašo pranešimų leidimo).
-- **Recently used apps** – rodyti telefone neseniai naudotas programas (nukreipia į „Usage access“ ekraną).
-- **Haptic feedback** – vibracija paspaudus klavišą / ilgai palaikius.
-- **Window position and size** – tempimas, dydžio keitimas, atstatymas.
-- **Force refresh index** – priverstinai perkrauti programų ir kontaktų sąrašą.
-- **Hidden apps** – paslėptų programų valdymas (filtrai „Hidden“ / „All apps“, paieška, „Show all“).
-- **Clear usage statistics** – ištrina A9 paleidimų istoriją (kiek kartų / kada paleista per A9). Prisegtų ir paslėptų nelieta; „Recently used apps“ naudoja sistemos istoriją, todėl nesikeičia.
+- **Appearance** – theme, background color and transparency, accent color, columns and rows, with a live preview at the top. Choosing a theme resets custom background settings.
+- **Icon pack** – pick an installed icon pack or the default icons.
+- **Contacts** – contact search (asks for READ_CONTACTS and CALL_PHONE).
+- **Quick Launch Panel** – a persistent notification with your most-used apps (asks for notification permission).
+- **Recently used apps** – show recently opened apps from the whole phone (opens the “Usage access” screen).
+- **Haptic feedback** – vibration on key press / long-press.
+- **Window position and size** – drag, resize, reset.
+- **Force refresh index** – force a reload of the app and contact lists.
+- **Hidden apps** – manage hidden apps (“Hidden” / “All apps” filters, search, “Show all”).
+- **Clear usage statistics** – deletes A9's launch history (how many times / when each app was launched via A9). Pinned and hidden apps are untouched; “Recently used apps” uses the system history, so it does not change.
 
-## Leidimai ir privatumas
+## Permissions and privacy
 
-| Leidimas | Kam reikalingas | Kada |
+| Permission | Why | When |
 |---|---|---|
-| `QUERY_ALL_PACKAGES` | Matyti visas įdiegtas programas | visada |
-| `REQUEST_DELETE_PACKAGES` | Išdiegimo dialogas (Uninstall) | visada, tik kai spaudžiate |
-| `READ_CONTACTS` | Kontaktų paieška | tik įjungus |
-| `CALL_PHONE` | Skambinti tiesiogiai (kitaip atidaromas rinkiklis) | tik įjungus kontaktus |
-| `POST_NOTIFICATIONS` | Quick Launch pranešimas | tik įjungus |
-| `RECEIVE_BOOT_COMPLETED` | Atkurti Quick Launch po perkrovimo | visada |
-| `PACKAGE_USAGE_STATS` | Neseniai naudotos programos (Usage access) | tik įjungus ir suteikus |
+| `QUERY_ALL_PACKAGES` | See all installed apps | always |
+| `REQUEST_DELETE_PACKAGES` | Uninstall dialog | only when you tap Uninstall |
+| `READ_CONTACTS` | Contact search | only when enabled |
+| `CALL_PHONE` | Call directly (otherwise the dialer opens) | only with contacts enabled |
+| `POST_NOTIFICATIONS` | Quick Launch notification | only when enabled |
+| `RECEIVE_BOOT_COMPLETED` | Restore Quick Launch after a reboot | always |
+| `PACKAGE_USAGE_STATS` | Recently used apps (Usage access) | only when enabled and granted |
 
-**Interneto leidimo nėra.** Nėra analitikos, reklamų, paskyrų ar debesies. Duomenys saugomi tik programos privačiame aplanke:
-- nustatymai – DataStore;
-- naudojimo statistika, prisegtos ir paslėptos programos – `usage.json`;
-- programų sąrašo kopija – `apps_cache.json`;
-- ikonų talpykla – `cache/icons/*.png`.
+**There is no internet permission.** No analytics, ads, accounts or cloud. Data is stored only in the app's private storage:
+- settings – DataStore;
+- usage statistics, pinned and hidden apps – `usage.json`;
+- a copy of the app list – `apps_cache.json`;
+- icon cache – `cache/icons/*.png`.
 
-Kadangi `QUERY_ALL_PACKAGES` tokiam tikslui neatitinka Google Play politikos, A9 skirta diegti tiesiogiai (sideload).
+Because `QUERY_ALL_PACKAGES` does not fit Google Play policy for this purpose, A9 is meant to be installed directly (sideloaded).
 
-## Greitis
+## Performance
 
-Šaltas paleidimas po „force close“ turi rodyti rezultatus iškart:
-- **programų sąrašas** išsaugomas diske ir po paleidimo nuskaitomas per kelias milisekundes, o `LauncherApps` sąrašas fone jį patikslina;
-- **ikonos** išsaugomos PNG failais ir nuskaitomos iš disko, o ne perpiešiamos iš sistemos; talpykla nusenta, kai programa atnaujinama;
-- **nustatymai** pirmam kadrui nuskaitomi sinchroniškai, kad nešokinėtų tema;
-- sąrašas atsinaujina automatiškai (`LauncherApps.Callback`), atnaujintų programų ikonos perkraunamos tik joms, be mirgėjimo.
+A cold start after a “force close” should show results immediately:
+- the **app list** is saved to disk and read back within milliseconds after launch, while the `LauncherApps` list refines it in the background;
+- **icons** are saved as PNG files and read from disk instead of being re-rendered by the system; the cache is invalidated when an app is updated;
+- **settings** are read synchronously for the first frame so the theme does not jump;
+- the list refreshes automatically (`LauncherApps.Callback`); updated apps get their icons reloaded individually, without flicker.
 
-## Architektūra
+## Architecture
 
-Kotlin 2.4, Jetpack Compose (Material 3), Gradle version catalog, AGP 9.4. `minSdk 29`, `targetSdk 36`, `compileSdk 37`. Paketas: `lt.tbu.a9`. Rankinis DI (vienas `AppContainer`), be Hilt.
+Kotlin 2.4, Jetpack Compose (Material 3), Gradle version catalog, AGP 9.4. `minSdk 29`, `targetSdk 36`, `compileSdk 37`. Package: `lt.tbu.a9`. Manual DI (a single `AppContainer`), no Hilt.
 
 ```
 app/src/main/java/lt/tbu/a9/
-  A9App.kt                 Application + AppContainer (visos saugyklos)
-  search/                  T9Map, Tokenizer, SearchEngine, Highlighter (gryna logika + testai)
+  A9App.kt                 Application + AppContainer (all repositories)
+  search/                  T9Map, Tokenizer, SearchEngine, Highlighter (pure logic + tests)
   data/                    AppRepository (LauncherApps), ContactRepository, RecentAppsRepository,
                            UsageRepository (JSON), SettingsRepository (DataStore), Models
-  icons/                   IconLoader (atmintis + diskas), IconPackManager (appfilter.xml)
+  icons/                   IconLoader (memory + disk), IconPackManager (appfilter.xml)
   ui/                      DialerActivity, DialerScreen, DialerViewModel, keyboard/, results/,
-                           actions/ (long-press meniu), settings/ (nustatymai, išvaizda, paslėptos), theme/
+                           actions/ (long-press menu), settings/ (settings, appearance, hidden apps), theme/
   notify/                  QuickLaunchNotifier, BootReceiver
-  shortcut/                ShortcutTrampolineActivity (paleidimas per shortcut'ą / pranešimą)
+  shortcut/                ShortcutTrampolineActivity (launching from a shortcut / notification)
 ```
 
-Pagrindiniai sprendimai:
-- **Lango forma:** permatomas viso ekrano `Activity`, kuriame Compose piešia plokštę; padėtis ir dydis – `BiasAlignment` + tankio (density) mastelis, todėl viskas mastelio keičiamas vienodai.
-- **Paleidimas:** per `LauncherApps.startMainActivity` – veikia ir darbo profiliui.
-- **Add to Home screen:** `ShortcutManagerCompat.requestPinShortcut` su `ShortcutTrampolineActivity`.
-- **Sąrašo atnaujinimas:** `LauncherApps.Callback` vietoj manifesto `PACKAGE_*` transliacijų (jos nebegaunamos nuo Android 8).
+Key decisions:
+- **Window shape:** a translucent full-screen `Activity` in which Compose draws the panel; position and size use `BiasAlignment` plus a density scale, so everything scales uniformly.
+- **Launching:** via `LauncherApps.startMainActivity` – works for work-profile apps as well.
+- **Add to Home screen:** `ShortcutManagerCompat.requestPinShortcut` with `ShortcutTrampolineActivity`.
+- **List updates:** `LauncherApps.Callback` instead of manifest `PACKAGE_*` broadcasts (no longer delivered since Android 8).
 
-## Kompiliavimas
+## Building
 
-Reikia:
-- **JDK 17+** (Android Studio jį atsineša).
-- **Android SDK** su platforma **37** ir build-tools. Paprasčiausia atidaryti projektą Android Studio (jis sukurs `local.properties` ir pasiūlys atsisiųsti trūkstamus komponentus). Iš komandinės eilutės užtenka nustatyti `ANDROID_HOME` (arba sukurti `local.properties` su `sdk.dir=…`) ir sutikti su licencijomis (`sdkmanager --licenses`).
-- Gradle atsisiunčia pats per wrapper.
+You need:
+- **JDK 17+** (Android Studio bundles one).
+- **Android SDK** with platform **37** and build-tools. The easiest way is to open the project in Android Studio (it creates `local.properties` and offers to download missing components). From the command line, set `ANDROID_HOME` (or create `local.properties` with `sdk.dir=…`) and accept the licenses (`sdkmanager --licenses`).
+- Gradle downloads itself via the wrapper.
 
 ```
 ./gradlew testDebugUnitTest assembleDebug
 ```
 
-APK: `app/build/outputs/apk/debug/app-debug.apk`. (Jei projektas guli OneDrive aplanke, build išvestis nukreipiama į `%LOCALAPPDATA%\A9-build\app`, nes OneDrive užrakina failus.)
+APK: `app/build/outputs/apk/debug/app-debug.apk`. (If the project lives in a OneDrive folder, the build output is redirected to `%LOCALAPPDATA%\A9-build\app`, because OneDrive locks files.)
 
-Diegimas į telefoną (USB debugging įjungtas):
+Install on a phone (USB debugging enabled):
 
 ```
 adb install -r app-debug.apk
 adb shell am start -n lt.tbu.a9/.ui.DialerActivity
 ```
 
-Release versija (`assembleRelease`) naudoja R8 ir parašoma debug raktu – tinka asmeniniam naudojimui.
+The release build (`assembleRelease`) uses R8 and is signed with the debug key – fine for personal use.
 
-## Testai
+## Tests
 
-`./gradlew testDebugUnitTest` – 21 vienetinis testas (`search/`): T9 kodavimas, diakritikos, tokenizavimas, reitingavimas pagal naudojimą ir prisegimą, paryškinimo indeksai (prefiksas, žodis, inicialai, `CamelCase`, bet kur pavadinime).
+`./gradlew testDebugUnitTest` runs 21 unit tests (`search/`): T9 encoding, diacritics, tokenizing, ranking by usage and pinning, and highlight indices (prefix, word, initials, `CamelCase`, anywhere in the name).
 
-## Žinomi apribojimai
+## Known limitations
 
-- **„Swipe up į Home“ animacija:** langas yra viso ekrano permatomas, todėl sistemos animacija sumažina visą langą (panelė slenka į ekrano vidurį). Tai sistemos elgsena – programa jos išjungti negali.
-- **„Native“ programų shortcut'ai** (pvz. „New chat“) ilgai palaikant: Android juos duoda tik numatytajam paleidėjui (launcher), todėl A9 jų nerodo. Vietoje to yra App info.
-- **Tikras Recents sąrašas** trečiosioms programoms neprieinamas; „Recently used apps“ naudoja sistemos naudojimo istoriją (Usage access) – labai panašu, bet ne identiška.
-- **Force stop** negali sustabdyti kitos programos tiesiogiai – atidaroma sistemos App info su „Force stop“ mygtuku.
+- **“Swipe up to Home” animation:** the window is a full-screen translucent one, so the system animation shrinks the whole window (the panel drifts toward the screen center). This is system behavior – the app cannot turn it off.
+- **Native app shortcuts** (e.g. “New chat”) on long-press: Android only provides these to the default launcher, so A9 does not show them. App info is offered instead.
+- **The real Recents list** is not available to third-party apps; “Recently used apps” uses the system usage history (Usage access) – very close, but not identical.
+- **Force stop** cannot stop another app directly – the system App info screen opens with its “Force stop” button.
 
-## Licencija
+## License
 
-GNU General Public License v3.0 – žr. [LICENSE](LICENSE).
+GNU General Public License v3.0 – see [LICENSE](LICENSE).
