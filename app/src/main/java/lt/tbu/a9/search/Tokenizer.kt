@@ -2,14 +2,14 @@ package lt.tbu.a9.search
 
 enum class MatchKind(val base: Int) { FULL(1000), PHONE(900), WORD(700), INITIALS(600), PACKAGE(300), SUBSTRING(200) }
 
-/** Ieškomas fragmentas: [text] – normalizuotas, [digits] – jo T9 kodas. */
+/** A searchable fragment: [text] – normalized, [digits] – its T9 code. */
 class Candidate(val kind: MatchKind, val text: String) {
     val digits: String = T9Map.toDigits(text)
 }
 
 class SearchEntry(val id: String, val candidates: List<Candidate>, val label: String = "")
 
-/** Iš pavadinimo / paketo / telefonų sudaro ieškomus fragmentus. */
+/** Builds searchable fragments from a name / package / phone numbers. */
 object Tokenizer {
     private val camel = Regex("(?<=[\\p{Ll}\\d])(?=\\p{Lu})")
     private val nonAlnum = Regex("[^\\p{L}\\p{N}]+")

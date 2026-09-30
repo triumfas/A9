@@ -23,9 +23,9 @@ data class Settings(
     val panelX: Float = 0f,
     val panelY: Float = 0.85f,
     val panelScale: Float = 1f,
-    val bgColor: Int = 0,          // 0 = temos numatytoji
-    val bgAlpha: Float = -1f,      // <0 = temos numatytasis
-    val accent: Int = 0,           // 0 = numatytoji oranžinė
+    val bgColor: Int = 0,          // 0 = the theme default
+    val bgAlpha: Float = -1f,      // <0 = the theme default
+    val accent: Int = 0,           // 0 = default orange
     val columns: Int = 4,
     val rows: Int = 1,
     val haptics: Boolean = true,
@@ -69,7 +69,7 @@ class SettingsRepository(private val context: Context) {
         )
     }
 
-    /** Pasirinkus temą, atstatomi pritaikyti fono nustatymai – kitaip jie visiškai užgožtų temos foną. */
+    /** Choosing a theme resets custom background settings – otherwise they would completely override the theme background. */
     suspend fun setTheme(v: ThemeMode) = edit {
         it[K.theme] = v.name
         it.remove(K.bgColor)

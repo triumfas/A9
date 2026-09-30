@@ -1,15 +1,15 @@
 package lt.tbu.a9.search
 
-/** Vartotojo istorija reitingui. */
+/** User history for ranking. */
 data class UsageInfo(val launchCount: Int = 0, val lastUsedMs: Long = 0L, val pinned: Boolean = false)
 
-/** Paieška tiesiniu skenavimu (pakanka tūkstančiams įrašų, <1 ms) ir reitingavimas. */
+/** Search by linear scan (enough for thousands of entries, <1 ms) and ranking. */
 class SearchEngine {
     @Volatile private var entries: List<SearchEntry> = emptyList()
 
     fun setEntries(list: List<SearchEntry>) { entries = list }
 
-    /** Grąžina id pagal reitingą. Tuščia užklausa → tik pagal naudojimą. */
+    /** Returns ids by ranking. An empty query → by usage only. */
     fun search(rawQuery: String, usage: (String) -> UsageInfo, now: Long = System.currentTimeMillis(), limit: Int = 60): List<String> {
         val q = T9Map.normalize(rawQuery).filter { !it.isWhitespace() }
         val scored = ArrayList<Triple<String, Int, String>>()
@@ -32,7 +32,7 @@ class SearchEngine {
             return s
         }
 
-        /** 0 – neatitinka. [q] jau normalizuotas ir be tarpų. */
+        /** 0 – no match. [q] is already normalized and without spaces. */
         fun matchScore(q: String, e: SearchEntry): Int {
             val digitsMode = q.all { it.isDigit() }
             var best = 0

@@ -34,7 +34,7 @@ import lt.tbu.a9.ui.DialerViewModel
 import lt.tbu.a9.ui.results.ItemIcon
 import lt.tbu.a9.ui.theme.LocalA9Colors
 
-/** Paslėptų programų valdymas: „Paslėptos“ (atslėpti) arba „Visos“ (surasti ir paslėpti). */
+/** Managing hidden apps: “Hidden” (to unhide) or “All apps” (to find and hide). */
 @Composable
 fun HiddenAppsScreen(vm: DialerViewModel, icons: IconLoader, onBack: () -> Unit) {
     val c = LocalA9Colors.current

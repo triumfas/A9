@@ -59,7 +59,7 @@ import lt.tbu.a9.ui.theme.LocalHaptics
 
 
 
-/** Vienos eilutės aukštis: piktograma + dviejų eilučių pavadinimas, be tuščio tarpo. */
+/** Height of one row: icon + a two-line name, with no empty gap. */
 private const val CELL_H = 100
 
 @Composable
@@ -69,7 +69,7 @@ fun ItemIcon(item: Item, icons: IconLoader, size: Dp) {
     bmp?.let { Image(it, contentDescription = null, modifier = Modifier.size(size)) } ?: Spacer(Modifier.size(size))
 }
 
-/** Viena eilutė po [COLUMNS] ikonas; daugiau rezultatų – kitas puslapis (stumti į šoną). */
+/** [columns] × [rows] icons per page; more results – another page (swipe sideways). */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ResultPager(
@@ -130,7 +130,7 @@ private fun PageDots(count: Int, current: Int) {
     val c = LocalA9Colors.current
     Row(Modifier.fillMaxWidth().height(8.dp), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
         if (count > 1) {
-            // Ilgi sąrašai: rodome ne daugiau kaip 12 žymeklių aplink dabartinį puslapį.
+            // Long lists: show at most 12 indicators around the current page.
             val start = (current - 5).coerceIn(0, maxOf(0, count - 12))
             for (i in start until minOf(count, start + 12)) {
                 Box(
@@ -177,7 +177,7 @@ private fun ResultCell(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             ItemIcon(item, icons, 58.dp)
-            // Atitikusios užklausai raidės paryškinamos – tai ir yra atsiliepimas apie įvestį.
+            // Letters matching the query are highlighted – this is the feedback for the input.
             val label = remember(item.label, pinned, query) {
                 val hit = Highlighter.matchIndices(item.label, query)
                 buildAnnotatedString {

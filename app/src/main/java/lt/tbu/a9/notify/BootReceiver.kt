@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import lt.tbu.a9.A9App
 
-/** Po perkrovimo atkuria Quick Launch pranešimą (Application konteineris jau paleidžia atnaujinimą; čia laukiam sąrašo). */
+/** Restores the Quick Launch notification after a reboot (the Application container already triggers an update; here we wait for the list). */
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action != Intent.ACTION_BOOT_COMPLETED) return

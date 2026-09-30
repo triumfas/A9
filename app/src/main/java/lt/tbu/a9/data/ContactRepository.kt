@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-/** Kontaktai su telefonais; įkeliami tik kai suteiktas READ_CONTACTS ir funkcija įjungta. */
+/** Contacts with phone numbers; loaded only when READ_CONTACTS is granted and the feature is enabled. */
 class ContactRepository(private val context: Context, private val scope: CoroutineScope) {
     private val _contacts = MutableStateFlow<List<ContactItem>>(emptyList())
     val contacts: StateFlow<List<ContactItem>> = _contacts

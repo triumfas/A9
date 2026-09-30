@@ -11,7 +11,7 @@ import android.os.UserManager
 import lt.tbu.a9.A9App
 import lt.tbu.a9.data.AppItem
 
-/** Be UI: paleidžia programėlę per LauncherApps (veikia ir darbo profiliui), tada užsidaro. */
+/** No UI: launches the app via LauncherApps (works for work profiles too), then finishes. */
 class ShortcutTrampolineActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +24,7 @@ class ShortcutTrampolineActivity : Activity() {
                 (application as A9App).container.usage.recordLaunch("${comp.flattenToShortString()}@$serial")
             }
         } catch (e: Exception) {
-            // Programėlė išdiegta ar nebepasiekiama – tiesiog užsidarome.
+            // The app was uninstalled or is no longer available – just finish.
         }
         finish()
     }
@@ -38,7 +38,7 @@ class ShortcutTrampolineActivity : Activity() {
         fun intent(context: Context, component: ComponentName, userSerial: Long): Intent =
             Intent(context, ShortcutTrampolineActivity::class.java)
                 .setAction(Intent.ACTION_MAIN)
-                // Unikalus data, kad skirtingi PendingIntent nesusijungtų.
+                // Unique data so different PendingIntents do not get merged.
                 .setData(Uri.parse("a9://launch/${component.flattenToShortString()}/$userSerial"))
                 .putExtra(EXTRA_COMPONENT, component.flattenToString())
                 .putExtra(EXTRA_USER_SERIAL, userSerial)

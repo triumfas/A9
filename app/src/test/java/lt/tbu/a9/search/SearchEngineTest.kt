@@ -29,7 +29,7 @@ class SearchEngineTest {
     @Test fun noMatch() = assertTrue(engine.search("zzzz", none).isEmpty())
 
     @Test fun usageBreaksTies() {
-        // „g“ atitinka ir Google Maps, ir YouTube (per paketą? ne) – tikrinam, kad dažniau naudojama eina pirmiau
+        // Check that a more frequently used app comes first
         val usage = { id: String -> if (id == "cal") UsageInfo(launchCount = 20, lastUsedMs = System.currentTimeMillis()) else UsageInfo() }
         val r = engine.search("c", usage)
         assertEquals("cal", r.first())

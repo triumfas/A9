@@ -1,9 +1,9 @@
 package lt.tbu.a9.search
 
 /**
- * Nustato, kurie pavadinimo simboliai atitiko užklausą (tuo pačiu prioritetu kaip paieška):
- * pradžios prefiksas → žodžio prefiksas → inicialai → bet kur pavadinime.
- * Grąžina simbolių indeksus pradiniame tekste [label].
+ * Determines which characters of the name matched the query (with the same priority as search):
+ * start prefix → word prefix → initials → anywhere in the name.
+ * Returns the character indices in the original text [label].
  */
 object Highlighter {
     fun matchIndices(label: String, rawQuery: String): Set<Int> {
@@ -11,9 +11,9 @@ object Highlighter {
         if (q.isEmpty()) return emptySet()
         val digits = q.all { it.isDigit() }
 
-        val idx = ArrayList<Int>()          // simbolio indeksas pradiniame tekste
-        val ch = ArrayList<Char>()          // normalizuotas simbolis
-        val wordStart = ArrayList<Int>()    // žodžių pradžios pozicijos ch sąraše
+        val idx = ArrayList<Int>()          // character index in the original text
+        val ch = ArrayList<Char>()          // normalized character
+        val wordStart = ArrayList<Int>()    // word start positions in the ch list
         var prevAlnum = false
         var prevLower = false
         label.forEachIndexed { i, c ->

@@ -63,7 +63,7 @@ import lt.tbu.a9.ui.theme.LocalHaptics
 private const val MIN_SCALE = 0.7f
 private const val MAX_SCALE = 1.6f
 
-/** Plaukiojanti plokštė (ne visas ekranas): padėtį ir dydį galima keisti redagavimo režime. */
+/** A floating panel (not full screen): position and size can be changed in edit mode. */
 @Composable
 fun DialerScreen(vm: DialerViewModel, actions: AppActions, icons: IconLoader, onClose: () -> Unit) {
     val state by vm.state.collectAsStateWithLifecycle()
@@ -76,7 +76,7 @@ fun DialerScreen(vm: DialerViewModel, actions: AppActions, icons: IconLoader, on
         val s = state.settings
         val editing = state.editLayout
 
-        // Vietinė būsena, kad tempimas/keitimas būtų sklandus; į DataStore rašoma pabaigus.
+        // Local state so dragging/resizing stays smooth; DataStore is written when finished.
         var bx by remember { mutableFloatStateOf(s.panelX) }
         var by by remember { mutableFloatStateOf(s.panelY) }
         var scale by remember { mutableFloatStateOf(s.panelScale) }
@@ -93,7 +93,7 @@ fun DialerScreen(vm: DialerViewModel, actions: AppActions, icons: IconLoader, on
             val containerH = constraints.maxHeight
 
             if (state.showSettings || state.showAppearance || showHidden) {
-                // Nustatymai visada tamsūs ir nepermatomi (nepriklauso nuo vartotojo fono), tik akcentas – pasirinktas.
+                // Settings are always dark and opaque (independent of the custom background); only the accent follows the chosen one.
                 A9Theme(ThemeMode.DARK, accent = s.accent) {
                     val nc = LocalA9Colors.current
                     Box(Modifier.fillMaxSize().background(nc.background).clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) {}) {
@@ -122,7 +122,7 @@ fun DialerScreen(vm: DialerViewModel, actions: AppActions, icons: IconLoader, on
                 val kb = KeyboardActions(vm::type, vm::backspace, vm::clear) { vm.setSettingsVisible(true) }
                 val base = LocalDensity.current
 
-                // Visas plokštės turinys mastelio keičiamas tankiu: išdėstymas prisitaiko prie lango dydžio.
+                // The whole panel content is scaled via density: the layout adapts to the window size.
                 CompositionLocalProvider(LocalDensity provides Density(base.density * scale, base.fontScale)) {
                     Column(
                         Modifier.align(BiasAlignment(bx, by))

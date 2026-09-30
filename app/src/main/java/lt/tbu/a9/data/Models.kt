@@ -3,7 +3,7 @@ package lt.tbu.a9.data
 import android.os.UserHandle
 import android.content.ComponentName
 
-/** Rezultato elementas: programėlė arba kontaktas. */
+/** A result item: an app or a contact. */
 sealed interface Item {
     val id: String
     val label: String

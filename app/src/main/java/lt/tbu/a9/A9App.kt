@@ -18,7 +18,7 @@ import lt.tbu.a9.icons.IconLoader
 import lt.tbu.a9.notify.QuickLaunchNotifier
 import lt.tbu.a9.ui.actions.AppActions
 
-/** Paprastas rankinis DI: vienas konteineris visai programai. */
+/** Simple manual DI: a single container for the whole app. */
 class AppContainer(app: Application) {
     val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     val settings = SettingsRepository(app)
@@ -31,11 +31,11 @@ class AppContainer(app: Application) {
     val notifier = QuickLaunchNotifier(app, apps, icons, usage, settings)
 
     init {
-        // Atnaujintų programų ikonas perkraunam tik po sąrašo perkrovimo ir tik joms (be globalaus valymo → nėra mirgėjimo).
+        // Reload icons of updated apps only, and only after the list has reloaded (no global eviction → no flicker).
         apps.onPackagesUpdated = { icons.invalidatePackages(it) }
         apps.start()
         scope.launch {
-            // Senos statistikos valymas – be skubos, kad nekonkuruotų su ikonų krovimu paleidžiant.
+            // Prune stale statistics unhurriedly so it does not compete with icon loading at startup.
             apps.apps.collectLatest { list ->
                 if (list.isNotEmpty()) {
                     delay(5_000)
@@ -50,7 +50,7 @@ class AppContainer(app: Application) {
             settings.flow.map { it.contactsEnabled }.distinctUntilChanged().collectLatest { contacts.setEnabled(it) }
         }
         scope.launch {
-            // Quick Launch pranešimas seka naudojimą, programėlių sąrašą ir nustatymą.
+            // The Quick Launch notification follows usage, the app list and the setting.
             kotlinx.coroutines.flow.combine(usage.state, apps.apps, settings.flow.map { it.quickLaunch }.distinctUntilChanged(), icons.version) { _, _, _, _ -> }
                 .collectLatest { notifier.update() }
         }

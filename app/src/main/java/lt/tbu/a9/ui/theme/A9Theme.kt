@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import lt.tbu.a9.data.ThemeMode
 
-/** Spalvų paletė: tamsūs/šviesūs klavišai su oranžiniu akcentu. */
+/** Color palette: dark/light keys with an orange accent. */
 data class A9Colors(
     val background: Color,
     val key: Color,
@@ -29,7 +29,7 @@ private val TransparentColors = A9Colors(Color(0xB3000000), Color(0x40FFFFFF), C
 
 val LocalA9Colors = staticCompositionLocalOf { DarkColors }
 
-/** Ar naudoti vibracijos atsaką (nustatymuose įjungiama/išjungiama). */
+/** Whether to use haptic feedback (toggled in settings). */
 val LocalHaptics = staticCompositionLocalOf { true }
 
 private fun base(mode: ThemeMode) = when (mode) {
@@ -38,12 +38,12 @@ private fun base(mode: ThemeMode) = when (mode) {
     ThemeMode.TRANSPARENT -> TransparentColors
 }
 
-/** Temos numatytasis fonas (spalva ir permatomumas) – nustatymų pradinėms reikšmėms. */
+/** The default background of the theme (color and transparency) – for the initial values of the settings. */
 fun baseBackground(mode: ThemeMode): Color = base(mode).background
 
 /**
- * [bgColor] != 0 – vartotojo fono spalva (ARGB); [bgAlpha] >= 0 – vartotojo permatomumas (0..1);
- * [accent] != 0 – vartotojo akcento spalva. Tekstas pritaikomas pagal pasirinktos fono spalvos šviesumą.
+ * [bgColor] != 0 – custom background color (ARGB); [bgAlpha] >= 0 – custom transparency (0..1);
+ * [accent] != 0 – custom accent color. Text adapts to the brightness of the chosen background color.
  */
 @Composable
 fun A9Theme(mode: ThemeMode, bgColor: Int = 0, bgAlpha: Float = -1f, accent: Int = 0, content: @Composable () -> Unit) {

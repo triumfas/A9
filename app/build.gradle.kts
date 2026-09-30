@@ -3,8 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
-// Jei projektas guli OneDrive aplanke, build išvestis nukreipiama už jo ribų (OneDrive užrakina failus ir laužo build).
-// Kitur (įprastas aplankas, CI, kitas kompiuteris) naudojamas standartinis app/build.
+// If the project lives in a OneDrive folder, the build output is redirected outside it (OneDrive locks files and breaks the build).
+// Elsewhere (a regular folder, CI, another computer) the standard app/build is used.
 if (rootDir.path.contains("OneDrive", ignoreCase = true)) {
     val base = System.getenv("LOCALAPPDATA") ?: System.getProperty("java.io.tmpdir")
     layout.buildDirectory.set(file("$base/A9-build/app"))

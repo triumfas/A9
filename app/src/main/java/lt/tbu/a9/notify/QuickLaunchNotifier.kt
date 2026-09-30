@@ -20,7 +20,7 @@ import lt.tbu.a9.search.SearchEngine
 import lt.tbu.a9.shortcut.ShortcutTrampolineActivity
 import lt.tbu.a9.ui.DialerActivity
 
-/** Nuolatinis pranešimas su dažniausiai naudojamomis programėlėmis. */
+/** A persistent notification with the most-used apps. */
 class QuickLaunchNotifier(
     private val context: Context,
     private val apps: AppRepository,

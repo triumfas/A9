@@ -4,7 +4,7 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- 3x3 numpad taškai; apatinis dešinysis („9“) – akcentas -->
+    <!-- 3x3 numpad dots; the bottom-right (“9”) one is the accent -->
     <path android:fillColor="#F2F2F2" android:pathData="M28,34a6,6 0 1,0 12,0a6,6 0 1,0 -12,0M48,34a6,6 0 1,0 12,0a6,6 0 1,0 -12,0M68,34a6,6 0 1,0 12,0a6,6 0 1,0 -12,0M28,54a6,6 0 1,0 12,0a6,6 0 1,0 -12,0M48,54a6,6 0 1,0 12,0a6,6 0 1,0 -12,0M68,54a6,6 0 1,0 12,0a6,6 0 1,0 -12,0M28,74a6,6 0 1,0 12,0a6,6 0 1,0 -12,0M48,74a6,6 0 1,0 12,0a6,6 0 1,0 -12,0" />
     <path android:fillColor="#FF8A00" android:pathData="M68,74a6,6 0 1,0 12,0a6,6 0 1,0 -12,0" />
 </vector>

@@ -15,10 +15,10 @@ import org.json.JSONObject
 import java.io.File
 
 data class UsageState(
-    val stats: Map<String, Pair<Int, Long>> = emptyMap(), // id → (paleidimų sk., paskutinis laikas)
+    val stats: Map<String, Pair<Int, Long>> = emptyMap(), // id → (launch count, last launch time)
     val pinned: Set<String> = emptySet(),
     val hidden: Set<String> = emptySet(),
-    val actions: Map<String, Int> = emptyMap(), // long-press veiksmų naudojimo skaičius (meniu rikiavimui)
+    val actions: Map<String, Int> = emptyMap(), // long-press action usage counts (for ordering the menu)
 ) {
     fun info(id: String): UsageInfo {
         val s = stats[id]
@@ -26,7 +26,7 @@ data class UsageState(
     }
 }
 
-/** Paleidimų statistika, prisegtos ir paslėptos programėlės – vienas JSON failas. */
+/** Launch statistics, pinned and hidden apps – a single JSON file. */
 class UsageRepository(context: Context, private val scope: CoroutineScope) {
     private val file = File(context.filesDir, "usage.json")
     private val writeLock = Mutex()
@@ -48,8 +48,8 @@ class UsageRepository(context: Context, private val scope: CoroutineScope) {
     fun recordAction(key: String) = mutate { s -> s.copy(actions = s.actions + (key to ((s.actions[key] ?: 0) + 1))) }
 
     /**
-     * Šalina išdiegtų programų statistiką. Saugu: trinami tik įrašai, kurių programos dabar nėra sąraše
-     * IR kurie nenaudoti bent [minAgeMs] – laikinai nepasiekiama programa (SD kortelė, darbo profilis) neprarandama.
+     * Removes statistics of uninstalled apps. Safe: only entries whose apps are not in the list right now
+     * AND that have been unused for at least [minAgeMs] are deleted – a temporarily unavailable app (SD card, work profile) loses nothing.
      */
     fun pruneMissingApps(existing: Set<String>, minAgeMs: Long = 30L * 24 * 3600 * 1000) {
         val cutoff = System.currentTimeMillis() - minAgeMs

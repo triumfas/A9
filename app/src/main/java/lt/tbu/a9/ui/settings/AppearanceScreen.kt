@@ -70,7 +70,7 @@ import kotlin.math.cos
 import kotlin.math.hypot
 import kotlin.math.sin
 
-/** Spalvos HSV būsena (ratas keičia atspalvį/sodrumą, slankiklis – šviesumą). */
+/** HSV color state (the wheel changes hue/saturation, the slider – brightness). */
 @Stable
 private class Hsv(argb: Int) {
     var h by mutableFloatStateOf(0f)
@@ -88,14 +88,14 @@ private class Hsv(argb: Int) {
 
 private enum class Editing { NONE, BACKGROUND, ACCENT }
 
-/** Išvaizda: viršuje gyva peržiūra, žemiau – tema, fonas, akcentas, programų skaičius lange. */
+/** Appearance: a live preview on top, below – theme, background, accent, apps in the window. */
 @Composable
 fun AppearanceScreen(vm: DialerViewModel, state: DialerUiState, onBack: () -> Unit) {
     val c = LocalA9Colors.current
     val s = state.settings
     val base = baseBackground(s.theme)
 
-    // Juodraščiai: peržiūra reaguoja iškart, o išsaugoma atleidus ratą / slankiklį.
+    // Drafts: the preview reacts immediately and the value is saved when the wheel / slider is released.
     val bg = remember(s.bgColor, s.theme) { Hsv(if (s.bgColor != 0) s.bgColor else base.copy(alpha = 1f).toArgb()) }
     var bgCustom by remember(s.bgColor, s.theme) { mutableStateOf(s.bgColor != 0) }
     var alpha by remember(s.bgAlpha, s.theme) { mutableFloatStateOf(if (s.bgAlpha >= 0f) s.bgAlpha else base.alpha) }
@@ -135,7 +135,7 @@ fun AppearanceScreen(vm: DialerViewModel, state: DialerUiState, onBack: () -> Un
             ) {
                 ColorWheel(bg, onChange = { bgCustom = true }, onFinished = ::saveBg)
                 LabeledSlider(R.string.bg_brightness, bg.v, 0f..1f, { bg.v = it; bgCustom = true }, ::saveBg)
-                // Rodoma kaip permatomumas: 0 % = nepermatomas.
+                // Shown as transparency: 0 % = opaque.
                 LabeledSlider(R.string.bg_transparency, 1f - alpha, 0f..0.9f, { alpha = 1f - it; alphaSet = true }, ::saveBg, percent = true)
             }
 
@@ -158,7 +158,7 @@ fun AppearanceScreen(vm: DialerViewModel, state: DialerUiState, onBack: () -> Un
     }
 }
 
-/** Eilutė su dabartinės spalvos apskritimu; bakstelėjus išsiskleidžia redaktorius, ↺ atstato numatytąją. */
+/** A row with a circle of the current color; tapping expands the editor, ↺ restores the default. */
 @Composable
 private fun ColorRow(
     title: Int,
@@ -184,7 +184,7 @@ private fun ColorRow(
     }
 }
 
-/** Spalvų ratas: kampas = atspalvis, atstumas nuo centro = sodrumas. Braukiant ar bakstelint parenkama spalva. */
+/** Color wheel: angle = hue, distance from the center = saturation. A color is picked by dragging or tapping. */
 @Composable
 private fun ColorWheel(hsv: Hsv, onChange: () -> Unit, onFinished: () -> Unit) {
     var box by remember { mutableStateOf(IntSize.Zero) }
@@ -213,7 +213,7 @@ private fun ColorWheel(hsv: Hsv, onChange: () -> Unit, onFinished: () -> Unit) {
         val r = size.minDimension / 2f
         drawCircle(Brush.sweepGradient(List(13) { Color.hsv((it * 30f) % 360f, 1f, 1f) }, center), radius = r)
         drawCircle(Brush.radialGradient(listOf(Color.White, Color.Transparent), center, r), radius = r)
-        drawCircle(Color.Black.copy(alpha = 1f - hsv.v), radius = r) // ratas tamsėja mažinant šviesumą
+        drawCircle(Color.Black.copy(alpha = 1f - hsv.v), radius = r) // the wheel darkens as brightness decreases
         val a = Math.toRadians(hsv.h.toDouble())
         val thumb = center + Offset(cos(a).toFloat(), sin(a).toFloat()) * (hsv.s * r)
         drawCircle(Color.White, 13.dp.toPx(), thumb, style = Stroke(3.dp.toPx()))
@@ -246,7 +246,7 @@ private val Samples = listOf(
     "Wallet" to 0xFF43A047, "Phone" to 0xFF00897B, "Chrome" to 0xFFF4511E, "Spotify" to 0xFF1DB954, "Signal" to 0xFF3A76F0, "Teams" to 0xFF6264A7,
 )
 
-/** Mažesnė tikro lango kopija su pasirinktais nustatymais (tema, fonas, akcentas, stulpeliai × eilutės). */
+/** A smaller copy of the real window with the chosen settings (theme, background, accent, columns × rows). */
 @Composable
 private fun PanelPreview(theme: ThemeMode, bgColor: Int, bgAlpha: Float, accent: Int, columns: Int, rows: Int) {
     Box(

@@ -20,7 +20,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 
-/** Įdiegtų programėlių sąrašas (visi profiliai), atsinaujina per [LauncherApps.Callback]. */
+/** List of installed apps (all profiles); refreshes via [LauncherApps.Callback]. */
 class AppRepository(private val context: Context, private val scope: CoroutineScope) {
     private val launcherApps = context.getSystemService(LauncherApps::class.java)
     private val userManager = context.getSystemService(UserManager::class.java)
@@ -31,11 +31,11 @@ class AppRepository(private val context: Context, private val scope: CoroutineSc
     @Volatile private var infos: Map<String, LauncherActivityInfo> = emptyMap()
     private var refreshJob: Job? = null
 
-    /** Sąrašo kopija diske: po „force close“ rodome ją iškart, kol LauncherApps dar kraunasi. */
+    /** A copy of the list on disk: after a force close we show it right away while LauncherApps is still loading. */
     private val cacheFile = File(context.filesDir, "apps_cache.json")
     private var lastSaved: String? = null
 
-    /** Paketai, pasikeitę nuo paskutinio sąrašo perkrovimo (atnaujinta / pridėta) – jų ikonas verta perkrauti. */
+    /** Packages changed since the last list reload (updated / added) – their icons are worth reloading. */
     private val changedPackages: MutableSet<String> = java.util.Collections.synchronizedSet(HashSet())
     var onPackagesUpdated: ((Set<String>) -> Unit)? = null
 
@@ -58,7 +58,7 @@ class AppRepository(private val context: Context, private val scope: CoroutineSc
 
     fun activityInfo(id: String): LauncherActivityInfo? = infos[id]
 
-    /** Debounce: kelios pakeitimų žinutės iš eilės → vienas perkrovimas. */
+    /** Debounce: several change events in a row → a single reload. */
     fun scheduleRefresh(delayMs: Long = 300) {
         refreshJob?.cancel()
         refreshJob = scope.launch(Dispatchers.IO) {
@@ -83,7 +83,7 @@ class AppRepository(private val context: Context, private val scope: CoroutineSc
             tmp.renameTo(cacheFile)
             lastSaved = json
         } catch (e: Exception) {
-            // Talpykla nėra kritinė.
+            // The cache is not critical.
         }
     }
 

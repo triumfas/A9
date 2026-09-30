@@ -18,7 +18,7 @@ import lt.tbu.a9.data.UsageRepository
 import lt.tbu.a9.icons.IconLoader
 import lt.tbu.a9.shortcut.ShortcutTrampolineActivity
 
-/** Visi paleidimo ir „long-press“ veiksmai. Nekeičia UI būsenos, tik kviečia sistemą. */
+/** All launch and long-press actions. Does not change UI state, only calls into the system. */
 class AppActions(
     private val context: Context,
     private val apps: AppRepository,
@@ -32,7 +32,7 @@ class AppActions(
         usage.recordLaunch(app.id)
         true
     } catch (e: Exception) {
-        apps.scheduleRefresh(0) // greičiausiai programėlė jau išdiegta
+        apps.scheduleRefresh(0) // the app was most likely uninstalled
         false
     }
 
@@ -40,7 +40,7 @@ class AppActions(
         launcherApps.startAppDetailsActivity(app.component, app.user, null, null)
     }
 
-    /** Ne-root programa negali sustabdyti kitos, todėl atidaro App info ekraną su „Force stop“. */
+    /** A non-root app cannot stop another one, so this opens the App info screen with “Force stop”. */
     fun forceStop(app: AppItem) = appInfo(app)
 
     fun actionCounts(): Map<String, Int> = usage.state.value.actions

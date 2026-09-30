@@ -8,7 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import lt.tbu.a9.A9App
 
-/** Paieškos ekranas: launcher ikona, ACTION_ASSIST, SEARCH_LONG_PRESS. */
+/** Search screen: launcher icon, ACTION_ASSIST, SEARCH_LONG_PRESS. */
 class DialerActivity : ComponentActivity() {
     private val container get() = (application as A9App).container
     private val vm: DialerViewModel by viewModels { DialerViewModel.Factory(container) }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Permatomas langas: „Transparent“ temoje matosi ekranas už A9; kitos temos piešiamos Compose. -->
+    <!-- Translucent window: with the “Transparent” theme the screen behind A9 shows through; other themes are drawn by Compose. -->
     <style name="Theme.A9" parent="android:Theme.Material.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>

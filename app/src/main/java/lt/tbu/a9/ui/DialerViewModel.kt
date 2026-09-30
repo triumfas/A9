@@ -40,7 +40,7 @@ data class DialerUiState(
 private data class Inputs(val query: String, val settings: Settings, val showSettings: Boolean, val editLayout: Boolean, val showAppearance: Boolean)
 
 class DialerViewModel(private val c: AppContainer) : ViewModel() {
-    // Nustatymai nuskaitomi iškart (~ms), kad pirmas kadras nešokinėtų iš numatytosios temos į pasirinktą.
+    // Settings are read immediately (~ms) so the first frame does not jump from the default theme to the chosen one.
     private val initialSettings: Settings = runBlocking { c.settings.flow.first() }
     private val query = MutableStateFlow("")
     private val showSettings = MutableStateFlow(false)
@@ -61,8 +61,8 @@ class DialerViewModel(private val c: AppContainer) : ViewModel() {
     ) { input, apps, contacts, usage, sysRecent ->
         rebuildIndexIfNeeded(apps, contacts)
         val results: List<Item> = if (input.query.isEmpty()) {
-            // Tuščia užklausa: prisegtos → paskutinė paleista per A9 → neseniai naudotos (telefone, jei įjungta)
-            // → likusios pagal pavadinimą.
+            // Empty query: pinned → last launched via A9 → recently used (on the phone, if enabled)
+            // → the rest by name.
             val visible = apps.filter { it.id !in usage.hidden }
             val sys = if (input.settings.recentApps) sysRecent else emptyMap()
             val lastA9 = visible.filter { (usage.stats[it.id]?.second ?: 0L) > 0L }.maxByOrNull { usage.stats[it.id]!!.second }?.id

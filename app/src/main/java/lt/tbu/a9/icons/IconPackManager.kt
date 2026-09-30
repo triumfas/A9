@@ -9,7 +9,7 @@ import org.xmlpull.v1.XmlPullParserFactory
 
 data class IconPackInfo(val packageName: String, val label: String)
 
-/** Įkeltas icon pack'as: komponentas → drawable pavadinimas (ADW/Nova/Go appfilter.xml). */
+/** A loaded icon pack: component → drawable name (ADW/Nova/Go appfilter.xml). */
 class IconPack(private val context: Context, val packageName: String) {
     private val res = context.packageManager.getResourcesForApplication(packageName)
     private val byComponent = HashMap<String, String>()
@@ -50,7 +50,7 @@ class IconPack(private val context: Context, val packageName: String) {
                 ev = parser.next()
             }
         } catch (e: Exception) {
-            // Sugadintas ar nepalaikomas paketas – naudojami numatytieji ikonų vaizdai.
+            // A broken or unsupported pack – the default icons are used.
         }
     }
 }

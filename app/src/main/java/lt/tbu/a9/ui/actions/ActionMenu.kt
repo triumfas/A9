@@ -34,7 +34,7 @@ import lt.tbu.a9.data.ContactItem
 import lt.tbu.a9.data.Item
 import lt.tbu.a9.ui.theme.LocalA9Colors
 
-/** Programos veiksmai; numatytoji tvarka – nuo arčiausio ikonos. Vėliau rikiuojama pagal naudojimo dažnį. */
+/** App actions; the default order is from closest to the icon. Later sorted by usage frequency. */
 private enum class AppAct(val labelRes: Int) {
     INFO(R.string.action_app_info),
     PIN(R.string.action_pin),
@@ -48,8 +48,8 @@ private enum class AppAct(val labelRes: Int) {
 private class MenuRow(val label: String, val run: () -> Unit)
 
 /**
- * Kompaktiškas „long-press“ meniu. Atsiveria virš ikonos (jei ji apatinėje ekrano pusėje) arba po ja;
- * dažniausiai naudojami veiksmai yra arčiausiai ikonos.
+ * A compact long-press menu. Opens above the icon (if it is in the lower half of the screen) or below it;
+ * the most frequently used actions are closest to the icon.
  */
 @Composable
 fun ActionMenu(
@@ -69,7 +69,7 @@ fun ActionMenu(
 
     fun ext(ok: Boolean) { if (ok) onLaunched() }
 
-    // Eilutės nuo arčiausios ikonos iki tolimiausios.
+    // Rows from closest to the icon to farthest.
     val rows: List<MenuRow> = when (item) {
         is AppItem -> {
             val counts = remember { actions.actionCounts() }
@@ -100,7 +100,7 @@ fun ActionMenu(
             add(MenuRow(stringResource(R.string.action_open_contact)) { ext(actions.openContact(item)) })
         }
     }
-    // Virš ikonos arčiausia eilutė turi būti apačioje, todėl sąrašą apverčiame.
+    // Above the icon the closest row must be at the bottom, so we reverse the list.
     val shown = if (above) rows.asReversed() else rows
 
     val margin = with(androidx.compose.ui.platform.LocalDensity.current) { 8.dp.roundToPx() }

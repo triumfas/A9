@@ -19,7 +19,7 @@ import lt.tbu.a9.data.AppRepository
 import lt.tbu.a9.data.ContactItem
 import lt.tbu.a9.data.Item
 
-/** Ikonų įkėlimas su LRU talpykla. [version] didėja pakeitus icon pack'ą. */
+/** Icon loading with an LRU cache. [version] increases when the icon pack changes. */
 class IconLoader(private val context: Context, private val apps: AppRepository) {
     private val cache = LruCache<String, Bitmap>(300)
     @Volatile private var pack: IconPack? = null
@@ -28,7 +28,7 @@ class IconLoader(private val context: Context, private val apps: AppRepository) 
 
     val sizePx: Int = (56 * context.resources.displayMetrics.density * 1.5f).toInt()
 
-    /** Diskinė ikonų talpykla: po „force close“ ikonos nuskaitomos iš PNG (~ms), o ne perpiešiamos iš sistemos. */
+    /** Disk icon cache: after a force close icons are read from PNG files (~ms) instead of being re-rendered by the system. */
     private val diskDir = File(context.cacheDir, "icons").apply { mkdirs() }
     private fun safeName(s: String) = s.replace(Regex("[^A-Za-z0-9._@-]"), "_")
     private fun fileFor(item: AppItem) = File(diskDir, safeName(item.id) + ".png")
@@ -36,7 +36,7 @@ class IconLoader(private val context: Context, private val apps: AppRepository) 
     private fun readDisk(item: AppItem): Bitmap? {
         val f = fileFor(item)
         if (!f.exists()) return null
-        // Programa galėjo būti atnaujinta, kai procesas buvo miręs – tada failas pasenęs.
+        // The app may have been updated while the process was dead – then the file is stale.
         val updated = runCatching { context.packageManager.getPackageInfo(item.packageName, 0).lastUpdateTime }.getOrDefault(0L)
         if (f.lastModified() < updated) { f.delete(); return null }
         return runCatching { BitmapFactory.decodeFile(f.path) }.getOrNull()
@@ -46,9 +46,9 @@ class IconLoader(private val context: Context, private val apps: AppRepository) 
         runCatching { fileFor(item).outputStream().use { bmp.compress(Bitmap.CompressFormat.PNG, 100, it) } }
     }
 
-    /** Išmeta tik nurodytų paketų ikonas iš talpyklos (po programos atnaujinimo); kitos lieka – jokio mirgėjimo. */
+    /** Evicts only icons of the given packages from the cache (after an app update); the rest stay – no flicker. */
     fun invalidatePackages(packages: Set<String>) {
-        // Talpyklos raktas – „paketas/klasė@profilis“.
+        // Cache key – “package/class@profile”.
         val diskStale = diskDir.listFiles()?.filter { f -> packages.any { f.name.startsWith(safeName(it) + "_") } }.orEmpty()
         diskStale.forEach { it.delete() }
         val stale = cache.snapshot().keys.filter { key -> packages.any { key.startsWith("$it/") } }
@@ -68,7 +68,7 @@ class IconLoader(private val context: Context, private val apps: AppRepository) 
     suspend fun load(item: Item): Bitmap = cache.get(item.id) ?: withContext(Dispatchers.IO) {
         val bmp = when (item) {
             is AppItem -> readDisk(item) ?: loadApp(item).also {
-                // Rašome į diską tik tikrą ikoną (ne laikiną atsarginę, kol sąrašas dar kraunasi iš talpyklos).
+                // Write only the real icon to disk (not the temporary fallback while the list is still loading from the cache).
                 if (pack != null || apps.activityInfo(item.id) != null) writeDisk(item, it)
             }
             is ContactItem -> loadContact(item)

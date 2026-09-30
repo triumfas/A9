@@ -34,7 +34,7 @@ class KeyboardActions(
     val onSettings: () -> Unit,
 )
 
-/** Klavišas su švelniu fonu (aiškiai matosi, kur spausti); atsakas – ripple ir haptika. */
+/** A key with a soft background (clearly shows where to tap); feedback – ripple and haptics. */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun Key(
@@ -67,7 +67,7 @@ fun NumpadKeyboard(actions: KeyboardActions, modifier: Modifier = Modifier) {
     val c = LocalA9Colors.current
     val h = 68.dp
 
-    // Kaip telefono rinkiklyje: skaitmuo viršuje, raidės po juo.
+    // Like a phone dialer: the digit on top, the letters below it.
     @Composable
     fun DigitContent(d: Char) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -76,7 +76,7 @@ fun NumpadKeyboard(actions: KeyboardActions, modifier: Modifier = Modifier) {
         }
     }
 
-    // 3×3: T9 naudoja tik 2–9, todėl „1“ vietoje – išvalymas (ilgai – nustatymai); „0“ nėra.
+    // 3×3: T9 only uses 2–9, so “1” is replaced by clear (long-press – settings); there is no “0”.
     Column(modifier.fillMaxWidth().padding(start = 6.dp, end = 6.dp, bottom = 6.dp)) {
         Row(Modifier.fillMaxWidth()) {
             Key(Modifier.weight(1f), h, actions.onClear, actions.onSettings, tint = c.accent.copy(alpha = 0.22f)) {

@@ -12,15 +12,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 /**
- * Neseniai naudotos programos visame telefone (paketas → paskutinio atidarymo laikas).
- * Android neleidžia skaityti tikro Recents sąrašo, todėl naudojamas Usage access (UsageStatsManager).
+ * Recently used apps across the whole phone (package → last opened time).
+ * Android does not allow reading the real Recents list, so Usage access (UsageStatsManager) is used.
  */
 class RecentAppsRepository(private val context: Context, private val scope: CoroutineScope) {
     private val usm = context.getSystemService(UsageStatsManager::class.java)
     private val _recent = MutableStateFlow<Map<String, Long>>(emptyMap())
     val recent: StateFlow<Map<String, Long>> = _recent
 
-    /** Ar vartotojas įjungė Usage access šiai programai (specialus leidimas). */
+    /** Whether the user has granted Usage access to this app (a special permission). */
     fun hasAccess(): Boolean {
         val ops = context.getSystemService(AppOpsManager::class.java)
         val mode = ops.unsafeCheckOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), context.packageName)
