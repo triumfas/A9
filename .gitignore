@@ -7,3 +7,6 @@ local.properties
 *.apk
 .kotlin/
 *.log
+*.jks
+*.keystore
+keystore.properties

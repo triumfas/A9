@@ -186,7 +186,20 @@ adb install -r app-debug.apk
 adb shell am start -n lt.tbu.a9/.ui.DialerActivity
 ```
 
-The release build (`assembleRelease`) uses R8 and is signed with the debug key – fine for personal use.
+### Release build and signing
+
+`./gradlew assembleRelease` produces a shrunk (R8) APK at `app/build/outputs/apk/release/app-release.apk`.
+
+Signing credentials are **never stored in the repository**. To sign with your own key, add these lines to your user-level `~/.gradle/gradle.properties`:
+
+```
+A9_STORE_FILE=/path/to/your-release.jks
+A9_STORE_PASSWORD=...
+A9_KEY_ALIAS=...
+A9_KEY_PASSWORD=...
+```
+
+Without them the release build falls back to the debug key, so anyone can still build it. Keep your keystore and its passwords backed up: installed copies can only be updated by an APK signed with the same key.
 
 ## Tests
 
