@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">A9</string>
+    <string name="no_results">Nieko nerasta. Bakstelėkite išvalyti</string>
+
+    <string name="action_app_info">Programėlės informacija</string>
+    <string name="action_force_stop">Sustabdyti (Force stop)</string>
+    <string name="action_uninstall">Išdiegti</string>
+    <string name="action_play_store">Atidaryti Play Store</string>
+    <string name="action_add_home">Pridėti į pagrindinį ekraną</string>
+    <string name="action_pin">Prisegti viršuje</string>
+    <string name="action_unpin">Atsegti</string>
+    <string name="action_hide">Paslėpti</string>
+    <string name="action_call">Skambinti %1$s</string>
+    <string name="action_sms">SMS %1$s</string>
+    <string name="action_open_contact">Atidaryti kontaktą</string>
+
+    <string name="settings">Nustatymai</string>
+    <string name="keyboard">Klaviatūra</string>
+    <string name="numpad">Numpad/T9</string>
+    <string name="qwerty">QWERTY</string>
+    <string name="theme">Tema</string>
+    <string name="theme_dark">Tamsi</string>
+    <string name="theme_light">Šviesi</string>
+    <string name="theme_transparent">Permatoma</string>
+    <string name="icon_pack">Ikonų paketas</string>
+    <string name="default_icons">Numatytosios ikonos</string>
+    <string name="no_icon_packs">Ikonų paketų neįdiegta</string>
+    <string name="contacts_search">Kontaktai</string>
+    <string name="contacts_search_summary">Pagal vardą ar telefono numerį</string>
+    <string name="quick_launch">Greito paleidimo skydelis</string>
+    <string name="quick_launch_summary">Rodo dažniausiai naudojamas programėles pranešimų srityje</string>
+    <string name="reindex">Priverstinai atnaujinti indeksą</string>
+    <string name="reset_hidden">Rodyti paslėptas programėles</string>
+    <string name="hidden_count">Paslėpta: %1$d</string>
+    <string name="hidden_apps">Paslėptos programos</string>
+    <string name="hidden_filter">Paslėptos (%1$d)</string>
+    <string name="all_apps">Visos programos</string>
+    <string name="search_apps">Ieškoti programų</string>
+    <string name="unhide_all">Rodyti visas</string>
+    <string name="reset_stats">Išvalyti naudojimo statistiką</string>
+    <string name="window_layout">Lango padėtis ir dydis</string>
+    <string name="window_layout_summary">Patempkite langą, padidinkite ar sumažinkite</string>
+    <string name="drag_to_move">Tempkite, kad perkeltumėte</string>
+    <string name="bg_section">Lango fonas</string>
+    <string name="bg_hue">Atspalvis</string>
+    <string name="bg_saturation">Sodrumas</string>
+    <string name="bg_brightness">Šviesumas</string>
+    <string name="bg_transparency">Permatomumas</string>
+    <string name="columns">Programų eilutėje</string>
+    <string name="rows">Eilučių lange</string>
+    <string name="appearance">Išvaizda</string>
+    <string name="appearance_summary">Tema, spalvos, permatomumas, programos lange</string>
+    <string name="preview">Peržiūra</string>
+    <string name="accent_color">Akcento spalva</string>
+    <string name="haptics">Vibracijos atsakas</string>
+    <string name="haptics_summary">Vibruoti paspaudus klavišą ir ilgai palaikius</string>
+    <string name="recent_apps">Neseniai naudotos programos</string>
+    <string name="recent_apps_summary">Rodyti neseniai telefone atidarytas programas (reikia Usage access)</string>
+    <string name="recent_apps_no_access">Usage access nesuteiktas 2013 sąraše leiskite A9</string>
+</resources>
